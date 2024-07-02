@@ -39,11 +39,11 @@ class UserManager(BaseUserManager):
     
 
 class User(AbstractBaseUser):
-    RESTAURANT = 1
+    VENDOR = 1
     CUSTOMER = 2
 
     ROLL_CHOICE =(
-        (RESTAURANT, 'Rsrtaurant'),
+        (VENDOR, 'Vendor'),
         (CUSTOMER, 'Customer'),
     )
 
