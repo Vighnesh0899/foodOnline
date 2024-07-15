@@ -28,8 +28,13 @@
 
 	<link rel="stylesheet" href="{% static 'css/custom.css' %}">
 
+	{% if '/profile/' in request.GET %}
 	<!-- put the google script for the google API -->
-	<!-- <script src="{% static 'js/custom.js' %}"></script> -->
+	 {% endif %}
+	 
+	
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script src="{% static 'js/custom.js' %}"></script>
 
 	<style>
 		body, .main-section p, .mce-content-body p{

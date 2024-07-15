@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'accounts',
     'vendor',
     'Menu',
+    'marketplace',
+
 
 
 ]
@@ -68,7 +70,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'accounts.context_processors.get_vendor'
+                'accounts.context_processors.get_vendor',
+                'marketplace.context_processors.get_cart_counter',
+                'marketplace.context_processors.get_cart_amounts',
                 # 'accounts.context_processors.get_google_api'
             ],
         },
@@ -150,12 +154,15 @@ MESSAGE_TAGS ={
 }
 
 #Email configuration
-
+EMAIL_BACKEND = config('EMAIL_BACKEND')
 EMAIL_HOST = config('EMAIL_HOST')
 EMAIL_PORT = config('EMAIL_PORT', cast =int)
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD =config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast = bool)
-DEFAULT_FROM_EMAIL =' foodonline marketplace <walawalkarvighnesh@gmail.com>'
+DEFAULT_FROM_EMAIL =' foodonline marketplace <marketplace.foodonline@gmail.com>'
 
 # GOOGLE_API_KEY = "PUT API KRY HERE"
+
+
+# settings.py

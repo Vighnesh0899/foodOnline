@@ -10,6 +10,7 @@ from django.core.exceptions import PermissionDenied
 from django.utils.http import urlsafe_base64_decode
 from django.contrib.auth.tokens import default_token_generator
 from vendor.models import Vendor
+from django.template.defaultfilters import slugify
 
 # Restrict the vendor from accessing the customer page
 def check_role_vendor(user):
@@ -55,7 +56,7 @@ def registerUser(request):
             #send varification mail
 
             mail_subject = "Please activate your account."
-            email_template = 'accounts/email/account_verification_email.html'
+            email_template = 'accounts/emails/account_verification_email.html'
             send_varification_email(request, user, mail_subject, email_template)
 
             messages.success(request, "Your account has been register successfully")
@@ -91,13 +92,15 @@ def registerVendor(request):
             user.save()
             vendor =v_form.save(commit=False)
             vendor.user= user
+            vendor_name = v_form.cleaned_data['vendor_name']
+            vendor.vendor_slug =slugify(vendor_name)+'-'+str(user.id)
             user_profile = UserProfile.objects.get(user=user)
             vendor.user_profile = user_profile
             vendor.save()
 
             #send varification mail
             mail_subject = "Please activate your account."
-            email_template = 'accounts/email/account_verification_email.html'
+            email_template = 'accounts/emails/account_verification_email.html'
             send_varification_email(request, user, mail_subject, email_template)
 
             messages.success(request, "Your account has been register sucessfully ! Please wait for the approval.")
@@ -187,7 +190,7 @@ def forgot_password(request):
 
             #send reset password email
             mail_subject = "Reset your password"
-            email_template = 'accounts/email/reset_password_email.html'
+            email_template = 'accounts/emails/reset_password_email.html'
             send_varification_email(request, user, mail_subject, email_template)
 
             messages.success(request, 'password reset link has been sent to your email address.')
@@ -227,7 +230,7 @@ def reset_password(request):
             messages.success(request, 'Password reset successfully!!')
             return redirect('login')
         else:
-            messages.error(request, 'Passwword do not match.' )
+            messages.error(request, 'Password do not match.' )
             return redirect('reset_password')
 
     return render(request, 'accounts/reset_password.html')
