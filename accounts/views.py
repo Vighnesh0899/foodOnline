@@ -244,7 +244,7 @@ def reset_password_validate(request, uidb64, token):
         user= None
     if user is not None and default_token_generator.check_token(user, token):
         request.session['uid'] = uid
-        messages.info(request, 'Please reset  ypur password.')
+        messages.info(request, 'Please reset  your password.')
         return redirect('reset_password')
     else:
         messages.error(request, 'This link has been expaired!')
